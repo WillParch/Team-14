@@ -11,45 +11,71 @@ private int jumps;
 public float speed;
  private float horizontal;
  private Rigidbody2D rd2d;
- public int maxHealth = 5;
- int currentHealth;
-public int health { get { return currentHealth; }}
+ public GameObject projectilePrefab;
+ RaycastHit2D hit;
+  Vector2 lookDirection = new Vector2(1,0);
+  bool isPower;
+
     private void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
+        isPower = false;
     }
     
     // Update is called once per frame
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
-    {
-        this.Jump ();
+       if(Input.GetKeyDown(KeyCode.W))
+        {
+            this.Jump (); 
+        }
 
+        
+
+        if(isPower == true)
+        {
+            if(Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
+        }
+
+        if (Input.GetKey(KeyCode.V))
+        {
+            isPower = false;
+        }
     }
-    }
+        
     void FixedUpdate()
     {
         if(Input.GetKey(KeyCode.A))
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
+            lookDirection = new Vector2(-1,0);
+            
         }
         if(Input.GetKey(KeyCode.D))
         {
             transform.Translate(speed * Time.deltaTime, 0, 0);
+            lookDirection = new Vector2(1,0);
+            
+        }
+
+       if (Input.GetKeyDown(KeyCode.X))
+        {
+        RaycastHit2D hit = Physics2D.Raycast(rd2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("Enemy"));
+        if (hit.collider != null)
+        {
+        if(hit.collider.gameObject.tag == "Enemy")
+        {
+            Destroy (hit.collider.gameObject);
+            isPower = true;
+        }
+        
+        }
         }
     }
-    public void ChangeHealth(int amount)
-    {
-        
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        
-    }
-        
-    
-
-     private void Jump()
+    private void Jump()
     {
     if (jumps > 0)
     {
@@ -74,5 +100,16 @@ public int health { get { return currentHealth; }}
      }                                                                                
  }
     
+    void Launch()
+    {
+        
+        GameObject projectileObject = Instantiate(projectilePrefab, rd2d.position + Vector2.up * 0.1f, Quaternion.identity);
+
+    Projectile projectile = projectileObject.GetComponent<Projectile>();
+    projectile.Launch(lookDirection, 300);
+
+        
+    }
+
     
 }
