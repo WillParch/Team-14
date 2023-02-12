@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gain: 1
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 7453858898496806330, guid: 519d1b15e0155db418f775d60ee097b2, type: 3}
 --- !u!61 &3941875361989216376
 BoxCollider2D:
   m_ObjectHideFlags: 0

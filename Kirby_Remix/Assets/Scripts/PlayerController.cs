@@ -7,19 +7,29 @@ public class PlayerController : MonoBehaviour
    
     public int maxJumps = 4;
 
-private int jumps;
-public float speed;
- private float horizontal;
- private Rigidbody2D rd2d;
- public GameObject projectilePrefab;
- RaycastHit2D hit;
-  Vector2 lookDirection = new Vector2(1,0);
-  bool isPower;
-
+    private int jumps;
+    public float speed;
+    private float horizontal;
+    private Rigidbody2D rd2d;
+    public GameObject projectilePrefab;
+    public GameObject boomerangPrefab;
+    RaycastHit2D hit;
+    Vector2 lookDirection = new Vector2(1,0);
+    bool isPower;
+    bool isCutter;
+    public SpriteRenderer spriteRenderer;
+    public Sprite beamSprite;
+    public Sprite cutterSprite;
+    public Sprite normSprite;
+    Animator animator;
+    
     private void Start()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         rd2d = GetComponent<Rigidbody2D>();
         isPower = false;
+        isCutter = false;
+        animator = GetComponent<Animator>();
     }
     
     // Update is called once per frame
@@ -34,16 +44,31 @@ public float speed;
 
         if(isPower == true)
         {
+            ChangeSprite(beamSprite);
             if(Input.GetKeyDown(KeyCode.C))
-        {
-            Launch();
+            {
+                Launch();
+            }
         }
+
+        if(isCutter == true)
+        {
+            OtherSprite(cutterSprite);
+            if(Input.GetKeyDown(KeyCode.C))
+            {
+                
+                Throw();
+            }
         }
 
         if (Input.GetKey(KeyCode.V))
         {
+            OriginSprite(normSprite);
             isPower = false;
+            isCutter = false;
         }
+
+       
     }
         
     void FixedUpdate()
@@ -63,17 +88,38 @@ public float speed;
 
        if (Input.GetKeyDown(KeyCode.X))
         {
-        RaycastHit2D hit = Physics2D.Raycast(rd2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("Enemy"));
+        RaycastHit2D hit = Physics2D.Raycast(rd2d.position + Vector2.up * 0.1f, lookDirection, 1.5f, LayerMask.GetMask("Enemy"));
         if (hit.collider != null)
         {
         if(hit.collider.gameObject.tag == "Enemy")
         {
             Destroy (hit.collider.gameObject);
             isPower = true;
+            isCutter = false;
         }
         
+        if(hit.collider.gameObject.tag == "Enemy2")
+        {
+            Destroy (hit.collider.gameObject);
+            isCutter = true;
+            isPower = false;
         }
         }
+        }
+    }
+
+    void ChangeSprite(Sprite beamSprite)
+    {
+        spriteRenderer.sprite = beamSprite;
+    }
+    void OtherSprite(Sprite cutterSprite)
+    {
+        spriteRenderer.sprite = cutterSprite;
+        
+    }
+    void OriginSprite(Sprite normSprite)
+    {
+        spriteRenderer.sprite = normSprite;
     }
     private void Jump()
     {
@@ -103,13 +149,20 @@ public float speed;
     void Launch()
     {
         
-        GameObject projectileObject = Instantiate(projectilePrefab, rd2d.position + Vector2.up * 0.1f, Quaternion.identity);
+    GameObject projectileObject = Instantiate(projectilePrefab, rd2d.position + Vector2.up * 0.1f, Quaternion.identity);
 
     Projectile projectile = projectileObject.GetComponent<Projectile>();
     projectile.Launch(lookDirection, 300);
-
-        
     }
 
+    void Throw()
+    {
+        
+    GameObject boomerangObject = Instantiate(boomerangPrefab, rd2d.position + Vector2.up * 0.1f, Quaternion.identity);
+
+    Boomerang boomerang = boomerangObject.GetComponent<Boomerang>();
+    boomerang.Throw(lookDirection, 300);
     
+    
+    }
 }
