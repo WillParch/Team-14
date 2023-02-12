@@ -10,6 +10,7 @@ TagManager:
   - Enemy 1
   - Enemy
   - Enemy2
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Door
   - Character
   - Projectile
   - Enemy

@@ -24,10 +24,14 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+       
+        
         if(health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+
+        
     }
 
      public void GainHealth(int gain)

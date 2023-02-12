@@ -14,14 +14,13 @@ GameObject:
   - component: {fileID: 7453858898496806328}
   - component: {fileID: 7453858898496806330}
   - component: {fileID: 7453858898496806335}
-  - component: {fileID: 487174784404807126}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7453858898496806334
 Transform:
   m_ObjectHideFlags: 0
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7453858898496806332}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.35, y: -2.48, z: 0}
-  m_LocalScale: {x: 1, y: 1.5757, z: 1}
+  m_LocalScale: {x: 0.03, y: 0.05, z: 0.03}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 6
-  health: 0
+  health: -46
 --- !u!114 &7453858898496806335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,23 +169,8 @@ MonoBehaviour:
   beamSprite: {fileID: 21300000, guid: d5ff9ee93ff2d61448a81d5c0e9a5ad9, type: 3}
   cutterSprite: {fileID: 21300000, guid: adbe3630c9e91da46867507130834b85, type: 3}
   normSprite: {fileID: 21300000, guid: 3ebbaa0670c371046907f5335ed98f2d, type: 3}
---- !u!95 &487174784404807126
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7453858898496806332}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ba103d50d98dca744a115e41232dce76, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  normfallSprite: {fileID: 21300000, guid: 4706ba0cedbcbce4db845ebe82252ecd, type: 3}
+  changefallSprite: {fileID: 21300000, guid: 1798bc431882ae344b7bdb9ed6d2cc78, type: 3}
+  otherfallSprite: {fileID: 21300000, guid: 5ff2338001665cf408cd1de2aa185cee, type: 3}
+  FallingThreshold: -1
+  Falling: 0

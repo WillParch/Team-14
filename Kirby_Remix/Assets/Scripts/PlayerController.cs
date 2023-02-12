@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,7 +22,12 @@ public class PlayerController : MonoBehaviour
     public Sprite beamSprite;
     public Sprite cutterSprite;
     public Sprite normSprite;
+    public Sprite normfallSprite;
+    public Sprite changefallSprite;
+    public Sprite otherfallSprite;
     Animator animator;
+    public float FallingThreshold = -1f;
+    public bool Falling = false;
     
     private void Start()
     {
@@ -67,10 +73,43 @@ public class PlayerController : MonoBehaviour
             isPower = false;
             isCutter = false;
         }
-
-       
-    }
         
+       if (rd2d.velocity.y < FallingThreshold)
+       {
+        Falling = true;
+       }
+       else
+       {
+        Falling = false;
+       }
+
+       if(Falling)
+       {
+        NormFallSprite(normfallSprite);
+       }
+       if(Falling == false && isCutter == false && isPower == false)
+       {
+         OriginSprite(normSprite);
+       }
+
+       if(Falling && isPower == true)
+        {
+        ChangeFallSprite(changefallSprite);
+        }
+        if(Falling == false && isPower == true)
+        {
+        ChangeSprite(beamSprite);
+        }
+
+         if(Falling && isCutter == true)
+        {
+        OtherFallSprite(otherfallSprite);
+        }
+        if(Falling == false && isCutter == true)
+        {
+        OtherFallSprite(cutterSprite);
+        }
+    }   
     void FixedUpdate()
     {
         if(Input.GetKey(KeyCode.A))
@@ -120,6 +159,19 @@ public class PlayerController : MonoBehaviour
     void OriginSprite(Sprite normSprite)
     {
         spriteRenderer.sprite = normSprite;
+        
+    }
+    void NormFallSprite(Sprite normfallSprite)
+    {
+        spriteRenderer.sprite = normfallSprite;
+    }
+    void ChangeFallSprite(Sprite changefallSprite)
+    {
+        spriteRenderer.sprite = changefallSprite;
+    }
+    void OtherFallSprite(Sprite otherfallSprite)
+    {
+        spriteRenderer.sprite = otherfallSprite;
     }
     private void Jump()
     {
@@ -137,14 +189,21 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.collider.tag == "Ground")
-    {
-        if(Input.GetKey(KeyCode.W))
         {
-        rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
-        jumps = maxJumps;
-        }                                                          
-     }                                                                                
- }
+        if(Input.GetKey(KeyCode.W))
+            {
+            rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse);
+            jumps = maxJumps;
+            }                                                          
+        }
+        
+        
+        if(collision.collider.tag == "Door")
+            {
+            SceneManager.LoadScene("GameOver");
+            }    
+                                                                                   
+    }
     
     void Launch()
     {
