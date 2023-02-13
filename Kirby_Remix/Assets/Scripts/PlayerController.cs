@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public float FallingThreshold = -1f;
     public bool Falling = false;
+   
     
     private void Start()
     {
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         isPower = false;
         isCutter = false;
         animator = GetComponent<Animator>();
+        
     }
     
     // Update is called once per frame
@@ -185,6 +187,8 @@ public class PlayerController : MonoBehaviour
         return;
     }
     }
+
+    
 
     private void OnCollisionStay2D(Collision2D collision)
     {
