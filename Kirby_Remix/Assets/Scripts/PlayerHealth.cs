@@ -63,6 +63,7 @@ public class PlayerHealth : MonoBehaviour
         {
         health += gain;
         }
+        HealthBar.instance.SetValue(health / (float)maxHealth);
     }
 
     // Update is called once per frame
