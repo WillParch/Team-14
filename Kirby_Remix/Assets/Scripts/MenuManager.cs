@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public void NextScene(int sceneID)
     {
-        SceneManager.LoadScene("About");
+        SceneManager.LoadScene(sceneID);
     }
 
 }

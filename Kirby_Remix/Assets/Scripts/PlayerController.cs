@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public float FallingThreshold = -1f;
     public bool Falling = false;
+    
    
     
     private void Start()
@@ -116,17 +117,21 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.A))
         {
+            
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             lookDirection = new Vector2(-1,0);
             
         }
+       
+        
         if(Input.GetKey(KeyCode.D))
         {
+            
             transform.Translate(speed * Time.deltaTime, 0, 0);
             lookDirection = new Vector2(1,0);
             
         }
-
+        
        if (Input.GetKeyDown(KeyCode.X))
         {
         RaycastHit2D hit = Physics2D.Raycast(rd2d.position + Vector2.up * 0.1f, lookDirection, 1.5f, LayerMask.GetMask("Enemy"));
@@ -228,4 +233,6 @@ public class PlayerController : MonoBehaviour
     
     
     }
+
+     
 }
