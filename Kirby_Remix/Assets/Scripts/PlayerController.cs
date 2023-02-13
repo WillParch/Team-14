@@ -28,7 +28,9 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     public float FallingThreshold = -1f;
     public bool Falling = false;
-    
+    AudioSource audioSource;
+    public AudioClip rainbow;
+    public AudioClip jump1;
    
     
     private void Start()
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
         isPower = false;
         isCutter = false;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         
     }
     
@@ -47,6 +50,8 @@ public class PlayerController : MonoBehaviour
        if(Input.GetKeyDown(KeyCode.W))
         {
             this.Jump (); 
+            audioSource.clip = jump1;
+            audioSource.Play();
         }
 
         
